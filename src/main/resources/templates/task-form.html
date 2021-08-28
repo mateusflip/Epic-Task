@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Nova Tarefa</title>
+</head>
+<body>
+
+<h1>Epic Task</h1>
+
+<h2>Nova Tarefa</h2>
+		
+		<form action="/task" method="post">
+				<label for="title">Título</label>
+				<input id ="title" name="title">
+				
+				<label for="description">Descrição</label>
+				<textarea name="description" id="description" cols=""></textarea>
+				
+				<label for="points">Pontos</label>
+				<input name="points" id="points" type="range">
+				
+				<a href="/task">Cancelar</a>
+				<button>Salvar</button>
+		</form>
+</body>
+</html>
