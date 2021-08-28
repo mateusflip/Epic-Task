@@ -1,12 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<h1>TASK</h1>
-<h2 href="/task/new">Nova Tarefa</h2>
+<h1>EPIC TASK</h1>
+
+
+<!-- Mostra os dados salvos no banco de dados -->
+<p th:text="${tasks}"></p>
+<a href="/task/new">Nova Tarefa</a>
+
+	<ul th:each="task : ${tasks}">
+		<li>
+			<p th:text="${task.title}"></p>
+			<p th:text="${task.description}"></p>
+			<p th:text="${task.points}"></p>
+			<button>Pegar</button>
+		</li>
+	</ul>
 
 <a></a>
 </body>
