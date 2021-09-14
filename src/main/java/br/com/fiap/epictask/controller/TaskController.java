@@ -32,7 +32,7 @@ public class TaskController {
 	}
 	
 	@RequestMapping("/task/new")
-	public String create() {
+	public String create(Task task) {
 		return "task-form";
 	}
 	

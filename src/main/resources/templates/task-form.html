@@ -12,15 +12,15 @@
 		
 		<form action="/task" method="post" th:object="${task}">
 				<label for="title">Título</label>
-				<input id ="title" name="title">
+				<input id ="title" name="title" th:field="*{title}">
 				<span th:errors="*{title}"></span>
 				
 				<label for="description">Descrição</label>
-				<textarea name="description" id="description" rows="" cols=""></textarea>
+				<textarea name="description" id="description" rows="" cols="" th:field="*{description}"></textarea>
 				<span th:errors="*{description}"></span>
 				
 				<label for="points">Pontos</label>
-				<input name="points" id="points" type="range">
+				<input name="points" id="points" type="range" th:field="*{points}">
 				<span th:errors="*{points}"></span>
 				
 				<a href="/task">Cancelar</a>
