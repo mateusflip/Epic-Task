@@ -1,2 +1,2 @@
 # Epic-Task
-Desenvolvimento de uma plataforma utilizando Java SpringBot
+Desenvolvimento de uma plataforma de tarefas utilizando Java SpringBot
