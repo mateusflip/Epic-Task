@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,9 +28,11 @@ public class ApiTaskController {
 	private TaskRepository repository;
 	
 	@GetMapping
-	public List<Task> index() {
-		List<Task> tasks = repository.findAll();
-		return tasks;
+	public List<Task> index(@RequestParam(required= false) String title) {
+		if(title == null) {
+			return repository.findAll();
+		}
+		return repository.findByTitleLike("%" + title + "%");
 	}
 	
 	@PostMapping
@@ -43,6 +47,12 @@ public class ApiTaskController {
 				.toUri();
 
 		return ResponseEntity.created(uri).body(task);
+	}
+	
+	//Procura por Id e caso não encontre retorna 404
+	@GetMapping("{id}")
+	public ResponseEntity<Task> show(@PathVariable Long id){
+		return ResponseEntity.of(repository.findById(id));
 	}
 	
 }
