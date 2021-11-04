@@ -2,10 +2,15 @@ package br.com.fiap.epictask.controller.api;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,11 +33,13 @@ public class ApiTaskController {
 	private TaskRepository repository;
 	
 	@GetMapping
-	public List<Task> index(@RequestParam(required= false) String title) {
+	public Page<Task> index(@RequestParam(required= false) String title,
+			@PageableDefault Pageable pageable
+			) {
 		if(title == null) {
-			return repository.findAll();
+			return repository.findAll(pageable);
 		}
-		return repository.findByTitleLike("%" + title + "%");
+		return repository.findByTitleLike("%" + title + "%", pageable);
 	}
 	
 	@PostMapping
@@ -54,5 +61,19 @@ public class ApiTaskController {
 	public ResponseEntity<Task> show(@PathVariable Long id){
 		return ResponseEntity.of(repository.findById(id));
 	}
+	
+	//Deletar por id na api
+	@DeleteMapping("{id}")
+	public ResponseEntity<Task> destroy(@PathVariable Long id){
+		Optional<Task> task = repository.findById(id);
+		
+		if(task.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		repository.deleteById(id);
+		return ResponseEntity.ok().build();
+	}
+	
 	
 }
