@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -36,6 +38,7 @@ public class ApiTaskController {
 	private TaskRepository repository;
 	
 	@GetMapping
+	@Cacheable("tasks")
 	public Page<Task> index(@RequestParam(required= false) String title,
 			@PageableDefault Pageable pageable
 			) {
@@ -46,6 +49,7 @@ public class ApiTaskController {
 	}
 	
 	@PostMapping
+	@CacheEvict(value="tasks", allEntries=true)
 	public ResponseEntity<Task> create(
 			@RequestBody @Valid Task task,
 			UriComponentsBuilder uriBuilder) {
@@ -67,6 +71,7 @@ public class ApiTaskController {
 	
 	//Update
 	@PutMapping("{id}")
+	@CacheEvict(value="tasks", allEntries=true)
 	public ResponseEntity<Task> update(@PathVariable Long id,
 			@RequestBody @Valid Task newTask){
 		Optional<Task> optional = repository.findById(id);
@@ -87,6 +92,7 @@ public class ApiTaskController {
 	
 	//Deletar por id na api
 	@DeleteMapping("{id}")
+	@CacheEvict(value="tasks", allEntries=true)
 	public ResponseEntity<Task> destroy(@PathVariable Long id){
 		Optional<Task> task = repository.findById(id);
 		
