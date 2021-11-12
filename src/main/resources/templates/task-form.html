@@ -11,7 +11,7 @@
 <h1>Epic Task</h1>
 
 <div class="card form">
-<h2>Nova Tarefa</h2>
+<h2 th:text="#{button.newtask}">Nova Tarefa</h2>
 	
 		
 		<form class="form-vertical" action="/task" method="post" th:object="${task}">
@@ -24,8 +24,19 @@
 				<span th:errors="*{description}"></span>
 				
 				<label for="points">Pontos</label>
-				<input name="points" id="points" type="range" th:field="*{points}">
+				<input 
+				name="points" 
+				id="points"
+				type="range" 
+				th:field="*{points}"
+				min=10
+				max=500
+				step=10
+				oninput="document.querySelector('#output-points').value=this.value">
 				<span th:errors="*{points}"></span>
+				
+				<output id="output-points">10</output>
+		
 				
 				<div class="action-buttons">
 				<a class="button" href="/task">Cancelar</a>

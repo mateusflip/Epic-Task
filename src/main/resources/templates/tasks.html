@@ -1,17 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Home da Página</title>
-</head>
+<head th:include="_template :: head"></head>
+
 <body>
 <h1>EPIC TASK</h1>
-<span th:text="${message}"></span>
+<span class="card" th:if="${message != null}" th:text="${message}"></span>
 
-
+<h2 th:text="#{title.task}"></h2>
 <!-- Mostra os dados salvos no banco de dados -->
-<p th:text="${tasks}"></p>
-<a href="/task/new">Nova Tarefa</a>
+
+<nav th:include="_template :: menu"></nav>
+
+<a class="button primary" href="/task/new" th:text="#{button.newtask}"></a>
 
 	<ul th:each="task : ${tasks}">
 		<li>

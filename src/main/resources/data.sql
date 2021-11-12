@@ -3,7 +3,8 @@ CREATE TABLE task(
 	id bigint primary key auto_increment,
 	title varchar(220),
 	description varchar(200),
-	points int
+	points int,
+	status int DEFAULT 0
 );
 
 INSERT INTO task (title, description, points) VALUES(

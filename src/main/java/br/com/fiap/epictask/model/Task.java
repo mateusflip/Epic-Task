@@ -33,8 +33,10 @@ public class Task {
 	@Max(value=500, message= "A Pontuação máxima é 500")
 	private int points;
 
+	@Min(value = 10, message = "{task.points.min}")
+	@Max(value=500, message= "{task.points.max}")
 	
-	
+	private int status;
 	
 	
 }

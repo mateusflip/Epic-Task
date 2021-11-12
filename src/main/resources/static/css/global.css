@@ -10,6 +10,7 @@ body{
 	margin-left:2rem;
 	background:#181B21;
 	font-family:Montserrat;
+	color:#FFFFFF;
 }
 a{
 	text-decoration:none;
@@ -61,5 +62,5 @@ button.primary,
 .button.primary{
 	background: #A650FF;
 	box-shadow: 0px 0px 7px #A650FF;
-	color: #4D2478;''
+	color: #4D2478;
 }
