@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.epictask.model.Task;
 import br.com.fiap.epictask.repository.TaskRepository;
@@ -39,12 +40,13 @@ public class TaskController {
 	
 	
 	@PostMapping("/task")
-	public String save(@Valid Task task, BindingResult result) { //Valid irá implantar as regras de validação que setamos no Model
+	public String save(@Valid Task task, BindingResult result, RedirectAttributes redirect) { //Valid irá implantar as regras de validação que setamos no Model
 		if(result.hasErrors()) {
 			return "task-form";
 		}
 		repository.save(task);
+		redirect.addFlashAttribute("message", "Tarefa cadastrada com sucesso");
 		
-		return "tasks";
+		return "redirect:task"; //Endereço da requisição
 	}
 }
